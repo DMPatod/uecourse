@@ -4,11 +4,12 @@
 #include "GameFramework/PlayerController.h"
 #include "PlayerControllerCourseBase.generated.h"
 
+class AHudCourseBase;
 class UInputAction;
 class UInputMappingContext;
 class UEnhancedInputComponent;
 struct FInputActionValue;
-class ACharacterBB;
+class ACharacterCourseBase;
 
 /**
  *
@@ -26,6 +27,15 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
 	UInputAction* ActionJump = nullptr;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
+	UInputAction* ActionToggleSprint = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
+	UInputAction* ActionToggleCrouch = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|UI")
+	UInputAction* ActionCycleUIMode = nullptr;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Player Input|Character Movement")
 	TObjectPtr<UInputMappingContext> InputMappingContent = nullptr;
 
@@ -35,14 +45,20 @@ protected:
 
 	void HandleLook(const FInputActionValue& InputActionValue);
 	void HandleMove(const FInputActionValue& InputActionValue);
-	void HandleJump(const FInputActionValue& InputActionValue);
+	void HandleJump();
+	void HandleToggleSprint();
+	void HandleToggleCrouch();
+	void HandleCycleUIMode();
 
 private:
 	UPROPERTY()
 	UEnhancedInputComponent* EnhancedInputComponent = nullptr;
 
 	UPROPERTY()
-	ACharacterBB* PlayerCharacter = nullptr;
+	ACharacterCourseBase* PlayerCharacter = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<AHudCourseBase> PlayerHud = nullptr;
 
 	GENERATED_BODY()
 };
