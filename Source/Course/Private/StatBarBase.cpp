@@ -96,12 +96,17 @@ void UStatBarBase::UpdatedWidget()
 	PercentBar_Filled->SetBrushColor(BarForegroundColor);
 	PercentBar_Empty->SetBrushColor(BarBackgroundColor);
 
-	ProcessCurrentValueText();
-
 	NameText->SetText(FText::FromString(NameValue));
-	ValueText->SetText(CurrentValueText);
-
-	PercentBars->SetVisibility(IsFullSize ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
+	if (Detailed)
+	{
+		ProcessCurrentValueText();
+		ValueText->SetText(CurrentValueText);
+		ValueText->SetVisibility(ESlateVisibility::Visible);
+	}
+	else
+	{
+		ValueText->SetVisibility(ESlateVisibility::Collapsed);
+	}
 }
 
 #if WITH_EDITOR
@@ -116,11 +121,11 @@ void UStatBarBase::PostEditChangeProperty(struct FPropertyChangedEvent& Property
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 
 	const FString PropertyName = ((PropertyChangedEvent.Property != nullptr)
-		                              ? PropertyChangedEvent.Property->GetFName()
-		                              : NAME_None).ToString();
+		? PropertyChangedEvent.Property->GetFName()
+		: NAME_None).ToString();
 
 	if (PropertyName == TEXT("CurrentPercentage") || PropertyName == TEXT("CurrentValue") || PropertyName ==
-		TEXT("NameValue"))
+		TEXT("NameValue") || PropertyName == TEXT("Detailed"))
 	{
 		UpdatedWidget();
 	}
