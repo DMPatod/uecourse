@@ -5,7 +5,7 @@
 #include "CharacterCourseBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "HudCourseBase.h"
+#include "DefaultHubBase.h"
 
 void APlayerControllerCourseBase::OnPossess(APawn* aPawn)
 {

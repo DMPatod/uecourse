@@ -16,6 +16,7 @@ enum class EPlayerKeyAction: uint8
 	AddKey UMETA(ToolTip = "Attempt to add a key to player's wallet."),
 	RemoveKey UMETA(ToolTip = "Attempt to remove a key from player's wallet."),
 	TestKey UMETA(ToolTip = "Check if the player has a specific key."),
+	CountKeys UMETA(ToolTip = "Count keys in collection.")
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FKeyWalletAction, FString, KeyString, EPlayerKeyAction, KeyAction, bool,
@@ -87,7 +88,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Player|Movement")
 	void ToggleSprinting();
-	
+
+	UFUNCTION(BlueprintCallable, Category="Player|Stats")
+	void BroadcastCurrentStats();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

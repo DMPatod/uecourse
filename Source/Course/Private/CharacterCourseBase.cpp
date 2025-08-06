@@ -122,6 +122,20 @@ void ACharacterCourseBase::ToggleSprinting()
 	SetSprinting(!bIsSprinting);
 }
 
+void ACharacterCourseBase::BroadcastCurrentStats()
+{
+	OnHealthChanged.Broadcast(CurrentHealth, CurrentHealth, MaxHealth);
+	OnStaminaChanged.Broadcast(CurrentStamina, CurrentStamina, MaxStamina);
+
+	FString AllKeys = FString();
+	for (FString Key : KeyWallet)
+	{
+		AllKeys.Appendf(TEXT("%s,"), *Key);
+	}
+
+	OnKeyWalletAction.Broadcast(AllKeys, EPlayerKeyAction::CountKeys, true);
+}
+
 // Called when the game starts or when spawned
 void ACharacterCourseBase::BeginPlay()
 {

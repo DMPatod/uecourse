@@ -4,7 +4,7 @@
 #include "GameFramework/PlayerController.h"
 #include "PlayerControllerCourseBase.generated.h"
 
-class AHudCourseBase;
+class ADefaultHubBase;
 class UInputAction;
 class UInputMappingContext;
 class UEnhancedInputComponent;
@@ -58,7 +58,7 @@ private:
 	ACharacterCourseBase* PlayerCharacter = nullptr;
 
 	UPROPERTY()
-	TObjectPtr<AHudCourseBase> PlayerHud = nullptr;
+	TObjectPtr<ADefaultHubBase> PlayerHud = nullptr;
 
 	GENERATED_BODY()
 };
